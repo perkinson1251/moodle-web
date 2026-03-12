@@ -7,33 +7,56 @@
     <div v-else-if="assignments.length === 0" class="text-sm text-muted">No assignments.</div>
 
     <div v-else>
-      <table class="w-full text-sm">
-        <thead>
-          <tr class="border-b border-border">
-            <th class="text-left py-2 px-3 text-muted font-medium">Name</th>
-            <th class="text-left py-2 px-3 text-muted font-medium w-40">Due date</th>
-            <th class="text-right py-2 px-3 text-muted font-medium w-28">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="a in assignments"
-            :key="a.id"
-            class="border-b border-border/50 hover:bg-surface-hover transition-colors duration-150"
-          >
-            <td class="py-2 px-3 text-txt">{{ a.name }}</td>
-            <td class="py-2 px-3 text-muted">{{ formatDate(a.duedate) }}</td>
-            <td class="py-2 px-3 text-right">
-              <button
-                class="text-xs text-primary hover:underline mr-3"
-                @click="submitAssignment(a.id)"
-              >
-                Submit
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- Desktop table -->
+      <div class="hidden md:block">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left py-2 px-3 text-muted font-medium">Name</th>
+              <th class="text-left py-2 px-3 text-muted font-medium w-40">Due date</th>
+              <th class="text-right py-2 px-3 text-muted font-medium w-28">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="a in assignments"
+              :key="a.id"
+              class="border-b border-border/50 hover:bg-surface-hover transition-colors duration-150"
+            >
+              <td class="py-2 px-3 text-txt">{{ a.name }}</td>
+              <td class="py-2 px-3 text-muted">{{ formatDate(a.duedate) }}</td>
+              <td class="py-2 px-3 text-right">
+                <button
+                  class="text-xs text-primary hover:underline"
+                  @click="submitAssignment(a.id)"
+                >
+                  Submit
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile list -->
+      <div class="md:hidden space-y-1">
+        <div
+          v-for="a in assignments"
+          :key="a.id"
+          class="px-3 py-2.5 border-b border-border/50"
+        >
+          <div class="text-sm text-txt">{{ a.name }}</div>
+          <div class="flex items-center justify-between mt-1">
+            <span class="text-xs text-muted">{{ formatDate(a.duedate) }}</span>
+            <button
+              class="text-xs text-primary hover:underline"
+              @click="submitAssignment(a.id)"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div v-if="submitMsg" class="mt-3 text-sm" :class="submitError ? 'text-danger' : 'text-success'">

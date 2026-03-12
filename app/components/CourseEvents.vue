@@ -10,17 +10,22 @@
       <div
         v-for="ev in events"
         :key="ev.id"
-        class="flex items-start gap-3 px-3 py-2 rounded-md hover:bg-surface-hover transition-colors duration-150"
+        class="px-3 py-2 rounded-md hover:bg-surface-hover transition-colors duration-150"
       >
-        <div class="w-32 shrink-0 text-xs text-muted pt-0.5">
-          {{ formatDate(ev.timestart) }}
-        </div>
-        <div class="min-w-0">
-          <div class="text-sm text-txt">{{ ev.name }}</div>
-          <div v-if="ev.eventtype" class="text-xs text-muted mt-0.5">{{ ev.eventtype }}</div>
-        </div>
-        <div v-if="ev.timeduration" class="text-xs text-muted shrink-0 ml-auto">
-          {{ formatDuration(ev.timeduration) }}
+        <div class="flex flex-col gap-1 md:flex-row md:items-start md:gap-3">
+          <div class="text-xs text-muted md:w-32 md:shrink-0 md:pt-0.5">
+            {{ formatDate(ev.timestart) }}
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="text-sm text-txt">{{ ev.name }}</div>
+            <div class="flex items-center gap-2 mt-0.5">
+              <span v-if="ev.eventtype" class="text-xs text-muted">{{ ev.eventtype }}</span>
+              <span v-if="ev.timeduration" class="text-xs text-muted md:hidden">· {{ formatDuration(ev.timeduration) }}</span>
+            </div>
+          </div>
+          <div v-if="ev.timeduration" class="hidden md:block text-xs text-muted shrink-0">
+            {{ formatDuration(ev.timeduration) }}
+          </div>
         </div>
       </div>
     </div>

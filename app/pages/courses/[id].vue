@@ -11,12 +11,12 @@
     <template v-else>
       <h1 class="text-lg font-semibold text-txt mb-4">{{ courseName }}</h1>
 
-      <div class="border-b border-border mb-4">
-        <nav class="flex gap-0 -mb-px">
+      <div class="border-b border-border mb-4 overflow-x-auto">
+        <nav class="flex gap-0 -mb-px min-w-max">
           <button
             v-for="tab in tabs"
             :key="tab.key"
-            class="px-3 py-2 text-sm border-b-2 transition-colors duration-150"
+            class="px-3 py-2 text-sm border-b-2 transition-colors duration-150 whitespace-nowrap"
             :class="activeTab === tab.key
               ? 'border-primary text-txt'
               : 'border-transparent text-muted hover:text-txt'"

@@ -16,17 +16,17 @@
           <div
             v-for="mod in section.modules"
             :key="mod.id"
-            class="flex items-center gap-2 px-3 py-1.5 rounded-md text-sm hover:bg-surface-hover transition-colors duration-150"
+            class="flex items-start gap-2 px-3 py-1.5 rounded-md text-sm hover:bg-surface-hover transition-colors duration-150"
           >
-            <span class="text-muted text-xs w-16 shrink-0">{{ mod.modname || 'item' }}</span>
+            <span class="text-muted text-xs w-12 md:w-16 shrink-0 pt-0.5">{{ mod.modname || 'item' }}</span>
             <a
               v-if="mod.url"
               :href="mod.url"
               target="_blank"
               rel="noopener"
-              class="text-primary hover:underline truncate"
+              class="text-primary hover:underline wrap-break-word min-w-0"
             >{{ mod.name }}</a>
-            <span v-else class="text-txt truncate">{{ mod.name }}</span>
+            <span v-else class="text-txt wrap-break-word min-w-0">{{ mod.name }}</span>
           </div>
         </div>
       </div>
