@@ -25,7 +25,13 @@
             >
               <td class="py-2 px-3 text-txt">{{ a.name }}</td>
               <td class="py-2 px-3 text-muted">{{ formatDate(a.duedate) }}</td>
-              <td class="py-2 px-3 text-right">
+              <td class="py-2 px-3 text-right space-x-2">
+                <button
+                  class="text-xs text-muted hover:text-txt hover:underline"
+                  @click="saveDraft(a.id)"
+                >
+                  Save draft
+                </button>
                 <button
                   class="text-xs text-primary hover:underline"
                   @click="submitAssignment(a.id)"
@@ -48,12 +54,20 @@
           <div class="text-sm text-txt">{{ a.name }}</div>
           <div class="flex items-center justify-between mt-1">
             <span class="text-xs text-muted">{{ formatDate(a.duedate) }}</span>
-            <button
-              class="text-xs text-primary hover:underline"
-              @click="submitAssignment(a.id)"
-            >
-              Submit
-            </button>
+            <div class="flex items-center gap-3">
+              <button
+                class="text-xs text-muted hover:text-txt hover:underline"
+                @click="saveDraft(a.id)"
+              >
+                Save draft
+              </button>
+              <button
+                class="text-xs text-primary hover:underline"
+                @click="submitAssignment(a.id)"
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -87,6 +101,22 @@ function formatDate(ts: number): string {
     hour: '2-digit',
     minute: '2-digit',
   })
+}
+
+async function saveDraft(assignmentId: number) {
+  submitMsg.value = ''
+  submitError.value = false
+  try {
+    await apiFetch(`/api/moodle/assignments/${assignmentId}/save`, {
+      method: 'POST',
+      body: { plugindata: {} },
+    })
+    submitMsg.value = 'Draft saved.'
+  }
+  catch {
+    submitError.value = true
+    submitMsg.value = 'Failed to save draft.'
+  }
 }
 
 async function submitAssignment(assignmentId: number) {

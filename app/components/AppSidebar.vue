@@ -31,12 +31,17 @@
     </nav>
 
     <div v-if="user" class="px-3 py-3 border-t border-border">
-      <div class="flex items-center gap-2 px-3 py-1.5">
+      <NuxtLink
+        to="/profile"
+        class="flex items-center gap-2 px-3 py-1.5 rounded-md transition-colors duration-150"
+        :class="route.path === '/profile' ? 'bg-surface-hover text-txt' : 'text-muted hover:text-txt hover:bg-surface-hover'"
+        @click="close"
+      >
         <div class="w-6 h-6 rounded-full bg-border flex items-center justify-center text-xs text-muted">
           {{ user.fullname.charAt(0).toUpperCase() }}
         </div>
         <span class="text-sm text-txt truncate flex-1">{{ user.fullname }}</span>
-      </div>
+      </NuxtLink>
       <button
         class="w-full mt-1 px-3 py-1.5 text-sm text-muted hover:text-txt hover:bg-surface-hover rounded-md text-left transition-colors duration-150"
         @click="handleLogout"

@@ -88,6 +88,20 @@ export interface UserDetail {
   institution?: string
   idnumber?: string
   profileimageurl?: string
+  profileimageurlsmall?: string
+  username?: string
+  firstname?: string
+  lastname?: string
+  firstaccess?: number
+  lastaccess?: number
+  auth?: string
+  suspended?: boolean
+  confirmed?: boolean
+  lang?: string
+  city?: string
+  country?: string
+  description?: string
+  descriptionformat?: number
 }
 
 export interface MoodleFile {
