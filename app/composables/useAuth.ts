@@ -29,9 +29,12 @@ export function useAuth() {
       })
       user.value = data
     }
-    catch {
-      token.value = null
-      user.value = null
+    catch (e: unknown) {
+      const status = (e as { response?: { status?: number } })?.response?.status
+      if (status === 401 || status === 403) {
+        token.value = null
+        user.value = null
+      }
     }
   }
 
